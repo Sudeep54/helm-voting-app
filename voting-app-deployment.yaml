@@ -1,0 +1,24 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Values.voting-app.name}}
+  labels: 
+    app: {{ .Values.voting-app.labels-app}}
+spec:
+  replicas: {{ .Values.voting-app.replicas}}
+  selector: 
+    matchLabels:
+      name: {{ .Values.voting-app.labels-name}}
+      app: {{ .Values.voting-app.labels-app}}
+  template:
+    metadata: 
+      name: {{ .Values.voting-app.labels-name}}
+      labels:
+        name: {{ .Values.voting-app.labels-name}}
+        app: {{ .Values.voting-app.labels-app}}
+    spec:
+      containers:
+      - name: {{ .Values.voting-app.name}}
+        image: {{ .Values.voting-app.image}} 
+        ports:
+          - containerPort: {{ .Values.voting-app.port}}

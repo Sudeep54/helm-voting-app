@@ -1,0 +1,27 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres.name}}
+  labels: 
+    app: {{ .Values.postgres.labels-app}}
+spec:
+  replicas: {{ .Values.postgres.replicas}}
+  selector: 
+    matchLabels:
+      name: {{ .Values.postgres.labels-name}}
+      app: {{ .Values.postgres.labels-app}}
+  template:
+    metadata:
+      name: {{ .Values.postgres.labels-name}}
+      labels: 
+        name: {{ .Values.postgres.labels-name}}
+        app: {{ .Values.postgres.labels-app}}
+    spec:
+      containers:
+        - name: {{ .Values.postgres.name}}
+          image: {{ .Values.postgres.image}}
+          env:
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: trust
+          ports:
+            - containerPort: {{ .Values.postgres.port}}

@@ -1,0 +1,15 @@
+apiVersion: v1 
+kind: Service
+metadata:
+  name: {{ .Values.voting-app.name}}
+  labels: 
+    name: {{ .Values.voting-app.name}}
+    app: {{ .Values.voting-app.labels-app}}
+spec:
+  type: LoadBalancer
+  ports:
+  - port: {{ .Values.voting-app.port}}
+    targetPort: {{ .Values.voting-app.port}}
+  selector:
+    name: {{ .Values.voting-app.labels-name}}
+    app: {{ .Values.voting-app.labels-app}}
